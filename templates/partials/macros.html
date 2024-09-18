@@ -1,0 +1,35 @@
+{% macro cookie_banner() %}
+    <!-- Inline javascript to handle the focus button on load -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const button1 = document.getElementById('button1');
+            const button2 = document.getElementById('button2');
+            
+            // Programmatically focus button1
+            button1.focus();
+
+            // Button2 mouseover listener
+            button2.addEventListener('mouseover', function() {
+                button1.blur();
+            });
+        });
+    </script>
+    <!-- Display a notification for accepting necessary cookies (always required) and analytical cookies (optional) -->
+    <div class="bgcookiebanner">
+        <div class="cookiebanner">
+            <div class="cookiebanner-title">
+                <h1>Cookies & AVG</h1>
+            </div>
+            <div>
+                <p>Toets en Feedback Vlaanderen VZW maakt op deze website gebruik van cookies. De strikt noodzakelijke cookies zijn nodig voor het goed functioneren van de website en kunnen niet worden geweigerd. 
+                Graag maken we ook gebruik van zogenaamde analytische cookies. Geef je jouw toestemming, dan worden bepaalde gegevens (zoals jouw browser, IP-adres, etc.) gebruikt om geaggregeerde statistieken te genereren. 
+                Je kan jouw toestemming steeds opnieuw intrekken via de link “cookiebeleid” onderaan de webpagina. Lees er meer over in ons Cookiebeleid.
+                </p>
+            </div>
+            <div class="cookiebanner-buttoncontainer">
+                    <button class="cookiebanner-button" id="button1" onclick="window.location.href='{{ url_for('accept_all_cookies') }}'">Alle cookies aanvaarden.</button>
+                    <button class="cookiebanner-button" id="button2" onclick="window.location.href='{{ url_for('accept_necessary_cookies') }}'">Enkel noodzakelijke cookies aanvaarden.</button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

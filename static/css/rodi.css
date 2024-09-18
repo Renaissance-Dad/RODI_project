@@ -31,6 +31,65 @@ body {
     width: 100%;
 }
 
+/* MODULE - cookiebanner*/
+.bgcookiebanner {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(178, 36, 83, 0.9); /* 10% opacity */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure it's on top */
+    justify-content: center; /* Center horizontally */
+    align-items: center; 
+    display: flex;
+}
+
+.cookiebanner {
+    width: 80%;
+    background-color: rgba(188, 237, 9);
+    border-radius: 1em;
+    border: 1px solid black;
+    box-shadow: 0 0.3em 1em rgba(9, 3, 17, 0.2); /* Vertical shadow below */
+    z-index: 1001; /* Ensure it's on top */
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-top: 3em;
+}
+
+.cookiebanner-title {
+    height: 4em;
+}
+
+.cookiebanner-buttoncontainer {
+    height: 4em;
+    margin-top: 1em;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 1em;
+}
+
+.cookiebanner-button {
+    height: 3em;
+    border-radius: 1em;
+    border: 1px solid black;
+    flex: 1;
+    align-content: center;
+    background-color: rgba(188, 237, 9);
+}
+
+.cookiebanner-button:focus {
+    background-color: black;
+    outline: none;
+    color: white;
+}
+
+.cookiebanner-button:hover {
+    background-color: black;
+    color: white;
+}
+
 /* MODULE - navbar */
 .navbar {
     background-color: whitesmoke;

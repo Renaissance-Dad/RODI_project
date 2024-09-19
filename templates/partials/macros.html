@@ -18,7 +18,7 @@
     <div class="bgcookiebanner">
         <div class="cookiebanner">
             <div class="cookiebanner-title">
-                <h1>Cookies & AVG</h1>
+                <h1 class="underline">Cookies & AVG</h1>
             </div>
             <div>
                 <p>Toets en Feedback Vlaanderen VZW maakt op deze website gebruik van cookies. De strikt noodzakelijke cookies zijn nodig voor het goed functioneren van de website en kunnen niet worden geweigerd. 
@@ -27,8 +27,8 @@
                 </p>
             </div>
             <div class="cookiebanner-buttoncontainer">
-                    <button class="cookiebanner-button" id="button1" onclick="window.location.href='{{ url_for('accept_all_cookies') }}'">Alle cookies aanvaarden.</button>
-                    <button class="cookiebanner-button" id="button2" onclick="window.location.href='{{ url_for('accept_necessary_cookies') }}'">Enkel noodzakelijke cookies aanvaarden.</button>
+                    <button class="cookiebanner-button" id="button1" onclick="window.location.href='{{ url_for('cookies.accept_all_cookies') }}'">Alle cookies aanvaarden.</button>
+                    <button class="cookiebanner-button" id="button2" onclick="window.location.href='{{ url_for('cookies.accept_necessary_cookies') }}'">Enkel noodzakelijke cookies aanvaarden.</button>
             </div>
         </div>
     </div>

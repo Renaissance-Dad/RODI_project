@@ -22,6 +22,21 @@ body {
     width: calc(100vw - 2em);
 }
 
+/* MODULE - draws a stylistic line underneath the H1 tag. */
+.underline {
+    position: relative;
+}
+.underline::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0.1em;
+    width: 4em;
+    max-width: 25%;
+    background-color: black;
+}
+
 /* MODULE - white card, used as background */
 .bgwhitecard {
     background-color: white;
@@ -55,6 +70,7 @@ body {
     padding-left: 3em;
     padding-right: 3em;
     padding-top: 3em;
+    position: relative;
 }
 
 .cookiebanner-title {

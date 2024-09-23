@@ -12,21 +12,22 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml" sizes="any">
 </head>
 <body>
-
-    {% if not cookie_value %}
+    {% include 'partials/navmenu.html' %}
+    <div class="bgwhitecard">
+        {% if not cookie_value %}
         {{ mymacros.cookie_banner() }}
-    {% else %}
+        {% else %}
         TEST
-    {% endif %}
+        {% endif %}
 
 
-    <main>
+        <main>
         {% block content %}
         <!-- Content will be inserted here -->
         {% endblock %}
-    </main>
+        </main>
 
-    {% include 'partials/footer.html' %}
-
+        {% include 'partials/footer.html' %}
+    </div>
 </body>
 </html>

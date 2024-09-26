@@ -1,21 +1,21 @@
-from app import app as flask_app
+
 import pytest
+from flask import Flask
+from app import cookies_blueprint, users_blueprint
 
-@pytest.fixture
-def app():
+@pytest.fixture(scope='module')
+def client():
     """
-    This fixture creates and configures a new app instance for each test.
+    This fixture sets up the Flask application, attaches the blueprint,
+    and provides a test client for use in the tests.
     """
-    # Set up the app for testing
-    flask_app.config['WTF_CSRF_ENABLED'] = False  # Disable CSRF for testing
-    return flask_app
+    app = Flask(__name__)
+    app.register_blueprint(cookies_blueprint)
+    app.register_blueprint(users_blueprint)
+    app.config['TESTING'] = True
 
-@pytest.fixture
-def client(app):
-    """
-    This fixture provides a test client for the application.
-    """
-    # Use the app context to avoid needing to push context in each test
+    @cookies
+
+    # Establish an application context before running the tests.
     with app.test_client() as client:
-        with app.app_context():
-            yield client
+        yield client

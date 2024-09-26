@@ -22,6 +22,42 @@ body {
     width: calc(100vw - 2em);
 }
 
+main {
+    height: 100%;
+    flex-grow: 1;
+}
+
+/* set up the progress element which is used in the registration flow */
+/* we first set a default */
+progress[value] {
+    --w: 100%; /* the width*/
+    --color: #6123C4; /* the progress color */
+    --background: lightgrey; /* the background color */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none; /* Firefox adds a default border */
+    width: 100%;
+    height: 1em;
+    border-radius: 0.5em;
+    background: var(--background);
+    margin-right: 1em;
+    margin-bottom: 0.2em;
+}
+progress[value]::-webkit-progress-bar {
+    border-radius: 0.5em;
+    background: var(--background);
+    border: 1px solid black;
+}
+progress[value]::-webkit-progress-value {
+    border-radius: 0.5em;
+    background: var(--color);
+}
+progress[value]::-moz-progress-bar {
+    border-radius: 0.5em;
+    background: var(--color);
+}
+
 /* MODULE - draws a stylistic line underneath the H1 tag. */
 .underline {
     position: relative;
@@ -42,8 +78,10 @@ body {
     background-color: white;
     border-radius: 1em; /* All four corners */
     padding: 1em;
-    height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 5.5em);
 }
 
 /* MODULE - cookiebanner*/
@@ -185,6 +223,110 @@ body {
 .navmenu-login:hover{
     font-weight: bold;
     cursor: pointer;
+}
+
+/* MODULE - registration form */
+.registration-container{
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.registration-rightpane{
+    height: 100%;
+    grid-row: 1 / span 3;
+    grid-column: 2 / 3;
+    border-left: 1px solid gray;
+    Padding: 1em;
+}
+
+.registration-img{
+    height: 100%;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    width: 50%;
+    text-align: right;
+}
+
+.registration-img:last-child{
+    height: 100%;
+    padding-bottom: none;
+    right: 0;
+}
+
+.registration-img:nth-child(2){
+    text-align: left;
+    margin-left:auto;
+}
+
+.registration-form{
+    width: 90%;
+    margin-top: 2em;
+    height: 100%;
+}
+
+.registration-form input[type='submit'] {
+    width: 100%;
+    height: 3em;
+    border-radius: 1em;
+    border: 1px solid black;
+    flex: 1;
+    align-content: center;
+    background-color: rgba(188, 237, 9);
+    font-size: 1em;
+}
+
+.registration-form input[type='submit']:not(:disabled):hover {
+    color: black;
+    font-weight: bold;
+}
+
+.registration-form input[type='text'] {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    width: 100%;
+    height: 2em;
+    border-radius: 0.2em;
+    padding: 0.5em;
+    border: 1px black solid;
+    transition: all 0.15s ease-in-out;
+}
+
+.registration-form input[type='password'] {
+    width: 100%;
+    height: 2em;
+    border-radius: 0.2em;
+    border: 1px black solid;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    transition: all 0.15s ease-in-out;
+}
+
+.registration-form li {
+    margin-top: 0;
+    list-style-position: inside;
+    padding-left: 2em;
+    text-indent: -1.4em;
+}
+
+.test::-webkit-progress-value  {
+  /* Gradient background with Stripes */
+  background-image:
+  -webkit-linear-gradient( 135deg,
+                           transparent,
+                           transparent 33%,
+                           rgba(0,0,0,.1) 33%,
+                           rgba(0,0,0,.1) 66%,
+                           transparent 66%),
+    -webkit-linear-gradient( top,
+                            rgba(255, 255, 255, .25),
+                            rgba(0,0,0,.2)),
+     -webkit-linear-gradient( left, #09c, #f44);
 }
 
 /* MODULE - navbar */
@@ -564,4 +706,18 @@ body {
     border-color: rgba(9, 3, 17);
 }
 
+/* MODULE - footer */
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: auto;
+}
 
+.footer-a {
+    color: gray; 
+}
+
+.footer-a:hover {
+    color: darkgray; 
+}

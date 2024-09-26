@@ -33,3 +33,67 @@
         </div>
     </div>
 {% endmacro %}
+
+{% macro registration_form(form) %}
+    <!-- load the zxcvbn pasw strength library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    
+    <!-- inline javascript to expand the password best practices on focus -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paswField = document.getElementById('myPasw');
+            const hiddenDiv = document.getElementById('hiddenDiv');
+            const strengthMeter = document.getElementById('paswStrengthMeter');
+            const emailField = document.getElementById('myEmail');
+
+            // Show the hiddenDiv when input is focused
+            paswField.addEventListener('focus', function() {
+                hiddenDiv.style.display = 'block'; 
+            });
+
+            // Calculate the pasw strength
+            paswField.addEventListener('input', function() {
+                const result = zxcvbn(paswField.value); // Use inputField.value here
+                const strength = result.score; // score is from 0 to 4
+
+                // Update the strength meter based on score
+                strengthMeter.value = strength; // Assuming strengthMeter is a <progress> element
+                strengthMeter.max = 4; // maximum score
+
+                // Remove the disabled attribute from the form submit button
+                if (strength === 4 && (emailField.value.trim() !== '')) {
+                    document.getElementById("mySubmit").removeAttribute("disabled");
+                }
+            });
+        });
+    </script>
+    <!-- render the form -->
+    <h1 class="underline">Registratie</h1>
+    <p style="margin-top:1em;">Maak een gratis account aan.</p> 
+    <div class="line" style="width: 90%;"></div>
+    <form method="POST" class="registration-form">
+        {{ form.hidden_tag() }}
+        <p style="font-weight: bold;">E-mailadres</p>
+        {{ form.username() }}
+        {% if form.username.errors %}
+            {% for error in form.username.errors %}
+            <p style="color:red">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+        <p style="margin-top: 1em; font-weight: bold;">Wachtwoord</p>
+        {{ form.userpasw() }}
+        <div style="height: 0.3em; width: 100%;"></div>
+        <div id="hiddenDiv" style="display: none;">
+            <progress id="paswStrengthMeter" value="0" max="4" style="width: 75%;"></progress>
+            <ul>Maak je wachtwoord sterker tot de balk gevuld is. Enkele tips:
+                <li class="registration-form">Gebruik een zin, spaties mogen.</li>
+                <li class="registration-form">Maak je wachtwoord iets langer.</li>
+                <li class="registration-form">Verwerk cijfers, leestekens of hoofdletters.</li>
+                <li class="registration-form">Vermijd je naam, e-mail, de sitenaam, herhalingen of cijferreeksen als 1234.</li>
+            </ul>
+        </div>
+        <div style="height: 1.7em; width: 100%;"></div>
+        {{ form.usersubmit(disabled="disabled") }}
+        <p style="font-weight: lighter;">*Door op deze knop te klikken, ga ik akkoord met de algemene voorwaarden van deze applicatie.</p>
+    </form>
+{% endmacro %}

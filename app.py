@@ -5,14 +5,20 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public 
 """
 
 from flask import Flask, render_template, url_for, request, make_response, redirect
+from datetime import datetime
 
 app = Flask(__name__)
 
+# Secret key for WTF forms - generated in flask shell with import secrets, secrets.token_hex((16)
+app.config['SECRET_KEY'] = 'ce4ea7ff8704fab7762fae559e4072ba'  
+
 # Import the blueprints
 from project.cookies import cookies_blueprint
+from project.users import users_blueprint
 
 # Register the blueprints
 app.register_blueprint(cookies_blueprint)
+app.register_blueprint(users_blueprint)
 
 
 @app.route('/')
@@ -20,12 +26,29 @@ def index():
     """
     Renders the homepage.
 
-    Retrieves the cookie value from the user's browser and passes it to the 
-    template to display relevant content.
+    :return: Rendered template for the homepage 
+    """
+    return render_template('index.html')
 
-    :return: Rendered template for the homepage with the cookie value.
+@app.context_processor
+def inject_year():
+    """
+    Retrieves the current year.
+
+    This information is used in the copyright notice in the footer.
+
+    :return: Dict with current_year available in all Jinja templates. 
+
+    """
+    return dict(current_year=datetime.now().year)
+
+@app.context_processor
+def inject_cookies_avr():
+    """
+    Retrieves the value of the avr cookie
+
+    :return: Dict with cookie_value available in all Jinja templates. 
     """
     cookie_value = request.cookies.get('cookies_avr')
-    return render_template('index.html', cookie_value=cookie_value)
-
+    return dict(cookie_value=cookie_value)
 

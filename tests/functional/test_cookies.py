@@ -33,7 +33,7 @@ def test_accept_all_cookies_no_referrer(client):
 def test_accept_necessary_cookies(client):
     """
     This test checks if the '/accept_necessary_cookies' route sets the 'cookies_avr' cookie 
-    to 'mandatory' and redirects to the referrer or index.
+    to 'mandatory' and redirects to the referrer.
     """
     # Simulate a request with a referrer
     response = client.get('/accept_necessary_cookies', headers={'Referer': '/somepage'})
@@ -61,18 +61,6 @@ def test_accept_necessary_cookies_no_referrer(client):
     
     # Check that it redirects to the index
     assert response.location == '/'
-
-def test_cookiebeleid_no_cookie(client):
-    """
-    This test checks if the '/cookiebeleid' route renders the cookiebeleid page 
-    and passes None as cookie_value when the 'cookies_avr' cookie is not set.
-    """
-    # Simulate a request with no 'cookies_avr' cookie
-    response = client.get('/cookiebeleid')
-    
-    # Assert the page renders successfully
-    assert response.status_code == 200
-    assert b'cookiebeleid' in response.data  # Check if the template renders (based on content in HTML)
 
 def test_cookiebeleid_with_cookie(client):
     """

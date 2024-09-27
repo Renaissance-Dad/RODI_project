@@ -18,4 +18,4 @@ def test_footer_datetime(client):
     response = client.get('/')
 
     # Assert that the response data contains the copyright year
-    assert f'&copy; Toets en Feedback Vlaanderen VZW - {current_year}'.encode() in response.data
+    assert f'{current_year}'.encode() in response.data

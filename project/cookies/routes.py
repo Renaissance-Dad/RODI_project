@@ -1,4 +1,4 @@
-from . import cookies_blueprint
+from . import cookies_blueprint 
 from flask import current_app, render_template, redirect, url_for, make_response, request
 
 @cookies_blueprint.route('/accept_all_cookies')
@@ -50,5 +50,4 @@ def cookiebeleid():
 
     :return: Rendered template for cookiebeleid page.
     """
-    cookie_value = request.cookies.get('cookies_avr')
-    return render_template('cookies/cookiebeleid.html', cookie_value=cookie_value)
+    return render_template('cookies/cookiebeleid.html')

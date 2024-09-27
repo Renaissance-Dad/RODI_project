@@ -18,8 +18,6 @@ def test_accept_all_cookies_no_referrer(client):
     """
     This test checks if the '/accept_all_cookies' route redirects to the index 
     when there's no referrer.
-
-    THERE ARE SOME ISSUES WITH THE PATHS
     """
     # Simulate a request without a referrer
     response = client.get('/accept_all_cookies', headers={'Referer': ''})

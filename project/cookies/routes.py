@@ -11,7 +11,7 @@ def accept_all_cookies():
     :return: Redirect response with the 'cookies_avr' cookie set to 'all'.
     """
     # Create a response and redirect to the previous page
-    referrer = request.referrer or url_for('index')  # If no referrer, fall back to index
+    referrer = request.referrer or url_for('main.index')  # If no referrer, fall back to index
 
     # Create a response to set the cookie
     response = make_response(redirect(referrer))
@@ -32,7 +32,7 @@ def accept_necessary_cookies():
     :return: Redirect response with the 'cookies_avr' cookie set to 'mandatory'.
     """
     # Create a response and redirect to the previous page
-    referrer = request.referrer or url_for('index')  # If no referrer, fall back to index
+    referrer = request.referrer or url_for('main.index')  # If no referrer, fall back to index
 
     # Create a response to set the cookie
     response = make_response(redirect(referrer))

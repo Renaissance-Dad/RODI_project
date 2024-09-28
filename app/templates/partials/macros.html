@@ -45,11 +45,19 @@
             const hiddenDiv = document.getElementById('hiddenDiv');
             const strengthMeter = document.getElementById('paswStrengthMeter');
             const emailField = document.getElementById('myEmail');
+            const errorDiv = document.getElementById('errorDiv');
 
-            // Show the hiddenDiv when input is focused
+            // Show the hiddenDiv when paswField is focused
             paswField.addEventListener('focus', function() {
                 hiddenDiv.style.display = 'block'; 
             });
+
+            // Hide the errorDiv when emailField is focused and the Div exists
+            if (errorDiv) {
+                emailField.addEventListener('focus', function() {
+                    errorDiv.style.display = 'none';
+                });
+            }   
 
             // Calculate the pasw strength
             paswField.addEventListener('input', function() {
@@ -76,9 +84,11 @@
         <p style="font-weight: bold;">E-mailadres</p>
         {{ form.username() }}
         {% if form.username.errors %}
-            {% for error in form.username.errors %}
-            <p style="color:red">{{ error }}</p>
-            {% endfor %}
+            <div id="errorDiv">
+                {% for error in form.username.errors %}
+                <p style="color:red; font-size:0.8em;" >{{ error }}</p>
+                {% endfor %}
+            </div>
         {% endif %}
         <p style="margin-top: 1em; font-weight: bold;">Wachtwoord</p>
         {{ form.userpasw() }}

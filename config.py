@@ -4,6 +4,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     SECRET_KEY = 'ce4ea7ff8704fab7762fae559e4072ba' 
     WTF_CSRF_ENABLED = True
+    SQLALCHEMY_DATABASE_URI = 'postgresql://flaskuser:1234@localhost/my_flask'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod
     def init_app(app):
@@ -19,3 +21,5 @@ config = {
     'testing': TestingConfig,
     'default': Config
 }
+
+

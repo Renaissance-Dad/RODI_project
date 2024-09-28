@@ -27,20 +27,5 @@ def client(app):
 
 @pytest.fixture
 def form(app):
-    with app.app_context():  # Ensure app context is set
+    with app.test_request_context('/'):
         yield RegForm()  # Provide the initialized form to tests
-
-
-@pytest.fixture
-def init_database(app):
-    with app.app_context():
-        # Create a user instance
-        user = db.User(email='benweyts@email.com', password='rodi123')
-        # Add the user to the session
-        db.session.add(user)
-        # Commit the session to save the user in the database
-        db.session.commit()
-        # Return the user instance for use in tests
-        yield user
-        # cleanup when done
-        db.session.remove()

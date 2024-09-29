@@ -1,7 +1,5 @@
 from flask import Flask, request
 from datetime import datetime
-from project.cookies import cookies_blueprint
-from project.users import users_blueprint
 from config import config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -30,7 +28,9 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     # Register the blueprints
+    from .cookies import cookies_blueprint
     app.register_blueprint(cookies_blueprint)
+    from .users import users_blueprint
     app.register_blueprint(users_blueprint)
 
     # As we're using an application factory we need to configure the db object

@@ -15,3 +15,4 @@ class RegForm(FlaskForm):
     usersubmit = SubmitField('NIEUW ACCOUNT AANMAKEN*', 
         render_kw={"id": "mySubmit"
         })
+    

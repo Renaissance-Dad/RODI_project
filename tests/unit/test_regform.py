@@ -1,4 +1,4 @@
-from project.users.forms import RegForm
+from app.users.forms import RegForm
 from tests.unit.helpers import get_form_html
 
 def test_email_validation(form):

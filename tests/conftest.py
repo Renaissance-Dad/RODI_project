@@ -1,6 +1,6 @@
 import pytest
 from app import create_app, db
-from project.users.forms import RegForm
+from app.users.forms import RegForm
 
 @pytest.fixture
 def app():

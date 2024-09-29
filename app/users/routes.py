@@ -1,6 +1,9 @@
 from . import users_blueprint
-from flask import current_app, render_template, redirect, url_for, make_response, request
+from flask import render_template
 from .forms import RegForm
+from app import db
+from app.models import User
+from sqlalchemy.exc import IntegrityError
 
 @users_blueprint.route('/registratie', methods=['GET', 'POST'])
 def registratie():
@@ -11,8 +14,14 @@ def registratie():
     """
     form = RegForm()
     if form.validate_on_submit():  # Checks if the form was submitted and passed all validations
-        # Process the form data
-        pass  # Placeholder for further processing (like saving the data)
+        try:
+            new_user = User(username=form.username.data, password=form.userpasw.data)
+            db.session.add(new_user)
+            db.session.commit()
+            return "nice"
+        except IntegrityError:
+            db.session.rollback()
+            form.username.errors.append("E-mailadres reeds geregistreerd.")
     else:  # If the form was not valid
         # Loop through each field that has errors
         for field, errors in form.errors.items():

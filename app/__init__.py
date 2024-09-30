@@ -32,6 +32,8 @@ def create_app(config_name):
     app.register_blueprint(cookies_blueprint)
     from .users import users_blueprint
     app.register_blueprint(users_blueprint)
+    from .auth import auth_blueprint
+    app.register_blueprint(auth_blueprint)
 
     # As we're using an application factory we need to configure the db object
     db.init_app(app)

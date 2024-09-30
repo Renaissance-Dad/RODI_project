@@ -27,6 +27,20 @@ main {
     flex-grow: 1;
 }
 
+.unstyled-link {
+    text-decoration: none;  /* Removes underline */
+    color: inherit;         /* Inherits the color from the parent element */
+    background: none;       /* Removes any background */
+    padding: 0;             /* Resets padding */
+    margin: 0;              /* Resets margin */
+    border: none;           /* Removes any border */
+  }
+
+.unstyled-link:hover, .unstyled-link:focus, .unstyled-link:active {
+    text-decoration: none;  /* Prevents styling when the link is hovered or focused */
+    color: inherit;
+}
+
 /* set up the progress element which is used in the registration flow */
 /* we first set a default */
 progress[value] {
@@ -708,16 +722,51 @@ progress[value]::-moz-progress-bar {
 
 /* MODULE - footer */
 .footer-container {
+    display: grid;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 2em;
+    grid-template-columns: 3fr 2fr 3fr 3fr;
+    grid-template-rows: auto 2em;
+    font-size: small;
+    column-gap: 1em;
+}
+
+.footer-column1, .footer-column2, .footer-column3 {
+    grid-row: 1 / 2;
+    margin-bottom: 1em;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+}
+
+.footer-column4 {
+    display: grid;
+    grid-row: 1 / 2;
+    width: 100%;
+    margin-bottom: 1em;
+    grid-template-rows: auto auto;
+}
+
+.footer-subrow {
+    height: auto;
+}
+
+
+.footer-bottomrow {
+    display: flex;
+    border-top: 1px solid darkgray;
+    width: 100%;
+    grid-row: 2 /3;
+    grid-column: span 4;
     justify-content: center;
-    margin-top: auto;
+    padding-top: 0.5em;
 }
 
 .footer-a {
-    color: gray; 
+    margin-bottom: 1em;
+    color: gray;
 }
 
-.footer-a:hover {
-    color: darkgray; 
+.footer-a:hover, .footer-a:visited {
+    color: darkgray;
 }

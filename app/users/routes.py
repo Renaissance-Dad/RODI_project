@@ -30,3 +30,7 @@ def registratie():
             # Print the error message for debugging
                 print(f"Error in {field}: {error}") 
     return render_template('users/registratiepagina.html', form=form)
+
+@users_blueprint.route('/wachtwoordvergeten')
+def wachtwoordvergeten():
+    return "PLACEHOLDER"

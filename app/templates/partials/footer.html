@@ -1,6 +1,30 @@
 <footer class="footer-container">
-    <p>&copy; Toets en Feedback Vlaanderen VZW - {{ current_year }}&nbsp;&nbsp;|&nbsp;&nbsp;</p>
-    <a href="{{ url_for('cookies.cookiebeleid') }}" class="footer-a">Cookie- en privacy-beleid</a>
-    &nbsp;&nbsp;|&nbsp;&nbsp;
-    <a href="https://github.com/Renaissance-Dad/RODI_project" target="_blank" class="footer-a">Draag bij aan het open-source project op Github</a>
+    <div class="footer-column1">
+        <h3 style="margin-bottom: 1em; font-weight: bold;">RODI is een initiatief van:</h3>
+        <img src="{{ url_for('static', filename='img/TEF_logo_white.svg') }}" alt="Toets en Feedback Vlaanderen Logo" width="100%">
+        <p style="margin-top:1.5em;">RODI is een ondersteunend toets- en feedbackplatform voor leerkrachten in het Vlaams secundair onderwijs. RODI is volledig onafhankelijk, gratis en open-source. AI binnen RODI is volledig conform met de <a class="unstyled-link" style="text-decoration: underline;" href="https://www.europarl.europa.eu/topics/en/article/20230601STO93804/eu-ai-act-first-regulation-on-artificial-intelligence">EU AI act</a> van maart 2024.</p>
+    </div>
+    <div class="footer-column2"></div>
+    <div class="footer-column3">
+        <h3 style="margin-bottom: 1em; font-weight: bold;">Juridische informatie:</h3>
+        <a href="{{ url_for('cookies.cookiebeleid') }}" class="footer-a">Cookie- en privacy-beleid</a>
+        <a href="{{ url_for('cookies.cookiesettings') }}" class="footer-a">Cookie instellingen</a>
+        <a href="{{ url_for('main.EULA') }}" class="footer-a">Licentieovereenkomst voor eindgebruikers</a>
+        <a href="{{ url_for('main.GPL3_0') }}" class="footer-a">GPL-3.0 Open-source Licentie</a>
+        <a href="https://www.europarl.europa.eu/topics/en/article/20230601STO93804/eu-ai-act-first-regulation-on-artificial-intelligence" class="footer-a">EU AI act</a>
+        <a href="{{ url_for('main.toegankelijkheidsverklaring') }}" class="footer-a">Toegankelijkheidsverklaring</a>
+    </div>
+    <div class="footer-column4">
+        <div class="footer-subrow">
+            <h3 style="margin-bottom: 1em; font-weight: bold;">Hulp en ondersteuning:</h3>
+            <a href="{{ url_for('users.wachtwoordvergeten') }}" class="footer-a">Wachtwoord vergeten</a>
+        </div>
+        <div class="footer-subrow">
+            <h3 style="margin-bottom: 1em; font-weight: bold;">Volg ons:</h3>
+            <a href="https://github.com/Renaissance-Dad/RODI_project" target="_blank" class="footer-a">Github</a>
+        </div>
+    </div>
+    <div class="footer-bottomrow">
+        <p>&copy; Toets en Feedback Vlaanderen VZW - {{ current_year }}</p>
+    </div>    
 </footer>

@@ -51,3 +51,7 @@ def cookiebeleid():
     :return: Rendered template for cookiebeleid page.
     """
     return render_template('cookies/cookiebeleid.html')
+
+@cookies_blueprint.route('/cookiesettings')
+def cookiesettings():
+    return "PLACEHOLDER COOKIESETTINGS"

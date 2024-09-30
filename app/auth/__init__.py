@@ -1,6 +1,6 @@
 """
-The blueprint handles everything related to the cookies.
-Specifically, it sets the avr cookie and also contains the cookiepolicy and the cookieconfigurator form.
+The blueprint handles everything related to the authorization of users.
+Flask-login extension is extensively used.
 """
 from flask import Blueprint
 from pathlib import Path
@@ -9,6 +9,6 @@ from pathlib import Path
 template_path = Path(__file__).parent / 'templates'
 
 # Create the blueprint and set the template folder
-cookies_blueprint = Blueprint('cookies', __name__, template_folder=str(template_path))
+auth_blueprint = Blueprint('auth', __name__, template_folder=str(template_path))
 
 from . import routes

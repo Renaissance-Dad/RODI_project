@@ -46,6 +46,7 @@
             const strengthMeter = document.getElementById('paswStrengthMeter');
             const emailField = document.getElementById('myEmail');
             const errorDiv = document.getElementById('errorDiv');
+            const errorMsg = document.getElementById('errorMsg');
 
             // Show the hiddenDiv when paswField is focused
             paswField.addEventListener('focus', function() {
@@ -54,6 +55,11 @@
 
             // Hide the errorDiv when emailField is focused and the Div exists
             if (errorDiv) {
+                if (errorMsg.innerHTML === 'E-mailadres reeds geregistreerd.') {
+                    const recoveryUrl = "{{ url_for('users.wachtwoordvergeten') }}";
+                    errorMsg.innerHTML += ' <a href="' + recoveryUrl + '" style="color: inherit;">Wachtwoord herstellen?</a>';
+                }
+
                 emailField.addEventListener('focus', function() {
                     errorDiv.style.display = 'none';
                 });
@@ -86,7 +92,7 @@
         {% if form.username.errors %}
             <div id="errorDiv">
                 {% for error in form.username.errors %}
-                <p style="color:red; font-size:0.8em;" >{{ error }}</p>
+                <p id="errorMsg" style="color:red; font-size:0.8em;" >{{ error }}</p>
                 {% endfor %}
             </div>
         {% endif %}

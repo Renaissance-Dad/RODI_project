@@ -33,7 +33,7 @@ def registratie():
 
 @users_blueprint.route('/wachtwoordvergeten')
 def wachtwoordvergeten():
-    return "PLACEHOLDER"
+    return "PLACEHOLDER WACHTWOORDVERGETEN"
 
 @users_blueprint.route('/rechtenenrollen', methods=['GET', 'POST'])
 def rechtenenrollen():

@@ -1,6 +1,6 @@
 from . import users_blueprint
-from flask import render_template
-from .forms import RegForm
+from flask import render_template, redirect, url_for
+from .forms import RegForm, RoleForm
 from app import db
 from app.models import User
 from sqlalchemy.exc import IntegrityError
@@ -18,7 +18,7 @@ def registratie():
             new_user = User(username=form.username.data, password=form.userpasw.data)
             db.session.add(new_user)
             db.session.commit()
-            return "nice"
+            return redirect(url_for('users.rechtenenrollen'))
         except IntegrityError:
             db.session.rollback()
             form.username.errors.append("E-mailadres reeds geregistreerd.")
@@ -34,3 +34,13 @@ def registratie():
 @users_blueprint.route('/wachtwoordvergeten')
 def wachtwoordvergeten():
     return "PLACEHOLDER"
+
+@users_blueprint.route('/rechtenenrollen', methods=['GET', 'POST'])
+def rechtenenrollen():
+    form = RoleForm()
+    if form.validate_on_submit():
+        if form.user_is_teacher.data:
+            return "PLACEHOLDER"
+        elif form.user_is_student.data:
+            return "PLACEHOLDER"
+    return render_template('users/rechtenenrollenpagina.html', form=form)

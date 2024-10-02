@@ -18,13 +18,13 @@ body {
     border:0;
     box-sizing: border-box;
     min-height: calc(100vh - 2em);
-    max-height: auto;
     width: calc(100vw - 2em);
 }
 
 main {
     height: 100%;
-    flex-grow: 1;
+    flex: 1;
+    display: flex;
 }
 
 .unstyled-link {
@@ -95,7 +95,8 @@ progress[value]::-moz-progress-bar {
     width: 100%;
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 5.5em);
+    min-height: calc(100vh - 5.5em);
+    flex: 1;
 }
 
 /* MODULE - cookiebanner*/
@@ -172,6 +173,7 @@ progress[value]::-moz-progress-bar {
     top: 0;
     display: flex;
     flex-direction: row;
+    background-color: whitesmoke;
 }
 
 .navmenu-logo{
@@ -241,40 +243,36 @@ progress[value]::-moz-progress-bar {
 
 /* MODULE - registration form */
 .registration-container{
-    flex-grow: 1;
-    height: 100%;
+    max-height: calc(100vh - 7.5em);
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .registration-rightpane{
-    height: 100%;
-    grid-row: 1 / span 3;
+    max-height: 100%;
+    height: 100;
+    grid-row: 1 / span 2;
     grid-column: 2 / 3;
     border-left: 1px solid gray;
-    Padding: 1em;
+    padding: 1em; /* Fixed capitalization */
+    overflow: hidden; /* Add overflow handling */
 }
 
-.registration-img{
+.registration-img1, .registration-img2 {
+    overflow: hidden;
     height: 100%;
-    padding-bottom: 2em;
-    padding-left: 2em;
-    padding-right: 2em;
-    width: 50%;
-    text-align: right;
 }
 
-.registration-img:last-child{
-    height: 100%;
-    padding-bottom: none;
-    right: 0;
+.registration-img1 {
+    grid-row: 1 / 2;
+    margin-right: auto;
 }
 
-.registration-img:nth-child(2){
-    text-align: left;
-    margin-left:auto;
+.registration-img2 {
+    margin-left: auto;
+    grid-row: 2 / 3;
 }
 
 .registration-form{
@@ -730,6 +728,7 @@ progress[value]::-moz-progress-bar {
     grid-template-rows: auto 2em;
     font-size: small;
     column-gap: 1em;
+    margin-top: auto;
 }
 
 .footer-column1, .footer-column2, .footer-column3 {

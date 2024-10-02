@@ -16,3 +16,11 @@ class RegForm(FlaskForm):
         render_kw={"id": "mySubmit"
         })
     
+class RoleForm(FlaskForm):
+    user_is_teacher = SubmitField('Ik ben een leerkracht',
+        render_kw={"id": "iamTeacher"
+        })
+    user_is_student = SubmitField('Ik ben een leerling',
+           render_kw={"id": "iamStudent"
+        })
+    

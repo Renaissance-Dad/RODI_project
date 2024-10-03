@@ -295,6 +295,7 @@ progress[value]::-moz-progress-bar {
 .registration-form input[type='submit']:not(:disabled):hover {
     color: black;
     font-weight: bold;
+    background-color: rgba(188, 237, 9);
 }
 
 .registration-form input[type='text'] {
@@ -326,20 +327,25 @@ progress[value]::-moz-progress-bar {
     text-indent: -1.4em;
 }
 
-.test::-webkit-progress-value  {
-  /* Gradient background with Stripes */
-  background-image:
-  -webkit-linear-gradient( 135deg,
-                           transparent,
-                           transparent 33%,
-                           rgba(0,0,0,.1) 33%,
-                           rgba(0,0,0,.1) 66%,
-                           transparent 66%),
-    -webkit-linear-gradient( top,
-                            rgba(255, 255, 255, .25),
-                            rgba(0,0,0,.2)),
-     -webkit-linear-gradient( left, #09c, #f44);
+/* MODULE - role buttons in the role and rights flow */
+.rightsandroles-buttons {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 1em;
+    width: 100%;
+    justify-content: center;
 }
+
+.rightsandroles-buttons input {
+    min-width: 12em;
+    min-height: 12em;
+}
+
+.rightsandroles-buttons input:not(:focus) {
+    background-color: whitesmoke;
+}
+
+
 
 /* MODULE - navbar */
 .navbar {

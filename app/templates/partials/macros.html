@@ -55,11 +55,13 @@
 
             // Hide the errorDiv when emailField is focused and the Div exists
             if (errorDiv) {
+                //expands the error message with a recoveryURL which improves the UX
                 if (errorMsg.innerHTML === 'E-mailadres reeds geregistreerd.') {
                     const recoveryUrl = "{{ url_for('users.wachtwoordvergeten') }}";
                     errorMsg.innerHTML += ' <a href="' + recoveryUrl + '" style="color: inherit;">Wachtwoord herstellen?</a>';
                 }
 
+                //removes the focus
                 emailField.addEventListener('focus', function() {
                     errorDiv.style.display = 'none';
                 });
@@ -111,5 +113,34 @@
         <div style="height: 1.7em; width: 100%;"></div>
         {{ form.usersubmit(disabled="disabled") }}
         <p style="font-weight: lighter;">*Door op deze knop te klikken, ga ik akkoord met de algemene voorwaarden van deze applicatie.</p>
+    </form>
+{% endmacro %}
+
+{% macro role_form(form) %}
+    <!-- Inline javascript to handle the focus button on load -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const button1 = document.getElementById('iamTeacher');
+            const button2 = document.getElementById('iamStudent');
+            
+            // Programmatically focus button1
+            iamTeacher.focus();
+
+            // Button2 mouseover listener
+            iamStudent.addEventListener('mouseover', function() {
+                iamTeacher.blur();
+            });
+        });
+    </script>
+    <!-- Actual html of the rights and roles page -->
+    <h1 class="underline">Rechten en rollen</h1>
+    <p style="margin-top:1em;">Ik ben een:</p> 
+    <div class="line" style="width: 90%;"></div>
+    <form method="POST" class="registration-form">
+        {{ form.hidden_tag() }}
+        <div class="rightsandroles-buttons">
+            {{ form.user_is_teacher }}
+            {{ form.user_is_student }}
+        </div>
     </form>
 {% endmacro %}

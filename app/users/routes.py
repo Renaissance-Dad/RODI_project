@@ -18,6 +18,7 @@ def registratie():
             new_user = User(username=form.username.data, password=form.userpasw.data)
             db.session.add(new_user)
             db.session.commit()
+            session['completed_registration'] = True
             return redirect(url_for('users.rechtenenrollen'))
         except IntegrityError:
             db.session.rollback()

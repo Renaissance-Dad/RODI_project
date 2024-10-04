@@ -1,5 +1,5 @@
 from . import users_blueprint
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, session, current_app
 from .forms import RegForm, RoleForm
 from app import db
 from app.models import User
@@ -37,10 +37,15 @@ def wachtwoordvergeten():
 
 @users_blueprint.route('/rechtenenrollen', methods=['GET', 'POST'])
 def rechtenenrollen():
-    form = RoleForm()
-    if form.validate_on_submit():
-        if form.user_is_teacher.data:
-            return "PLACEHOLDER"
-        elif form.user_is_student.data:
-            return "PLACEHOLDER"
-    return render_template('users/rechtenenrollenpagina.html', form=form)
+    if 'completed_registration' not in session:
+        # If the session flag is not found, redirect to registration page
+        current_app.logger.info('>> session not found, redirecting')
+        return redirect(url_for('users.registratie'))
+    else:
+        form = RoleForm()
+        if form.validate_on_submit():
+            if form.user_is_teacher.data:
+                return "PLACEHOLDER"
+            elif form.user_is_student.data:
+                return "PLACEHOLDER"
+        return render_template('users/rechtenenrollenpagina.html', form=form)

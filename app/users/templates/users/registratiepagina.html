@@ -1,10 +1,10 @@
 {% extends "layouts/base.html" %}
 {% block title %}Registreren{% endblock %}
 {% block content %}
-    <div class="registration-container">
-        <div class="registration-img1"><img style="object-fit: contain; height: 100%;" src="{{ url_for('static', filename='img/vector_art1.svg') }}" alt="Leerkracht bedenkt een toetsvraag"></div>
-        <div class="registration-img2"><img style="object-fit: contain; height: 100%;" src="{{ url_for('static', filename='img/vector_art2.svg') }}" alt="Leerkracht in gesprek"></div>
-        <div class="registration-rightpane">
+    <div class="split-container">
+        <div class="split-img1"><img style="object-fit: contain; height: 100%;" src="{{ url_for('static', filename='img/vector_art1.svg') }}" alt="Leerkracht bedenkt een toetsvraag"></div>
+        <div class="split-img2"><img style="object-fit: contain; height: 100%;" src="{{ url_for('static', filename='img/vector_art2.svg') }}" alt="Leerkracht in gesprek"></div>
+        <div class="split-rightpane">
             {{ mymacros.registration_form(form=form) }}
         </div>
     </div>

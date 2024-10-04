@@ -4,7 +4,7 @@ from wtforms.validators import Email, Length
 
 class RegForm(FlaskForm):
     username = StringField('Jouw E-mailadres', 
-        render_kw={"id": "myEmail"}, 
+        render_kw={"id": "myEmail", "autocomplete":"username"}, 
         validators=[
             Length(max=50, message="E-mailadres niet langer dan 50 tekens."),
             Email(message="Ongeldig E-mailadres.")

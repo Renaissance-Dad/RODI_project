@@ -1,14 +1,16 @@
 """
 This .py contains all the model class definitions for the app. We use SQLAlchemy in combination with postgreSQL 
 """
-from . import db
+from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True) 
     password_hash = db.Column(db.String(256))  # Use String for storing hashed passwords
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id')) 
 
     @property
     def password(self):
@@ -23,3 +25,16 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+    
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    users = db.relationship('User', backref='role') #One2Many, many different User records can have one Role name
+
+    def __repr__(self):
+        return '<Role %r>' % self.name

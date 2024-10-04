@@ -8,5 +8,5 @@
         <div class="navmenu-menu-items">TOETSEN</div>
         <div class="navmenu-menu-items">FEEDBACK</div>
     </div>
-    <div class="navmenu-login">INLOGGEN</div>
+    <div class="navmenu-login" onclick="window.location.href='{{ url_for('auth.login') }}'" style="cursor: pointer;">INLOGGEN</div>
 </div>

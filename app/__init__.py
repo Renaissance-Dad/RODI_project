@@ -3,10 +3,17 @@ from datetime import datetime
 from config import config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
+import logging
 
 #setting up the db object
 db = SQLAlchemy()
 migrate = Migrate()
+
+#setting up other modules
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -40,6 +47,13 @@ def create_app(config_name):
 
     # We're using migrate to have version control on the DB tables and content
     migrate.init_app(app, db)
+
+    # Configuring flask_login object
+    login_manager.init_app(app)
+    
+    # Setting up logger
+    logging.basicConfig(level=logging.INFO)
+    app.logger.info('Rodi successfully launched.')
 
     return app
 

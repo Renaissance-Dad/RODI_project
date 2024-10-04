@@ -87,7 +87,7 @@
     <h1 class="underline">Registratie</h1>
     <p style="margin-top:1em;">Maak een gratis account aan.</p> 
     <div class="line" style="width: 90%;"></div>
-    <form method="POST" class="registration-form">
+    <form method="POST" class="split-form">
         {{ form.hidden_tag() }}
         <p style="font-weight: bold;">E-mailadres</p>
         {{ form.username() }}
@@ -104,10 +104,10 @@
         <div id="hiddenDiv" style="display: none;">
             <progress id="paswStrengthMeter" value="0" max="4" style="width: 75%;"></progress>
             <ul>Maak je wachtwoord sterker tot de balk gevuld is. Enkele tips:
-                <li class="registration-form">Gebruik een zin, spaties mogen.</li>
-                <li class="registration-form">Maak je wachtwoord iets langer.</li>
-                <li class="registration-form">Verwerk cijfers, leestekens of hoofdletters.</li>
-                <li class="registration-form">Vermijd je naam, e-mail, de sitenaam, herhalingen of cijferreeksen als 1234.</li>
+                <li class="split-form">Gebruik een zin, spaties mogen.</li>
+                <li class="split-form">Maak je wachtwoord iets langer.</li>
+                <li class="split-form">Verwerk cijfers, leestekens of hoofdletters.</li>
+                <li class="split-form">Vermijd je naam, e-mail, de sitenaam, herhalingen of cijferreeksen als 1234.</li>
             </ul>
         </div>
         <div style="height: 1.7em; width: 100%;"></div>
@@ -136,11 +136,51 @@
     <h1 class="underline">Rechten en rollen</h1>
     <p style="margin-top:1em;">Ik ben een:</p> 
     <div class="line" style="width: 90%;"></div>
-    <form method="POST" class="registration-form">
+    <form method="POST" class="split-form">
         {{ form.hidden_tag() }}
         <div class="rightsandroles-buttons">
             {{ form.user_is_teacher }}
             {{ form.user_is_student }}
         </div>
     </form>
+{% endmacro %}
+
+{% macro login_form(form) %}
+<h1 class="underline">Login</h1>
+<p style="margin-top:1em;">Vul je logingegevens in:</p> 
+<div class="line" style="width: 90%;"></div>
+<form method="POST" class="split-form">
+    {{ form.hidden_tag() }}
+    <p style="font-weight: bold;">E-mailadres</p>
+    {{ form.username() }}
+    {% if form.username.errors %}
+    <div id="errorDiv">
+        {% for error in form.username.errors %}
+        <p id="errorMsg" style="color:red; font-size:0.8em;" >{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <p style="margin-top: 1em; font-weight: bold;">Wachtwoord</p>
+    {{ form.userpasw() }}
+    {{ form.forgetmenot() }}
+    <label for="forgetmenot" style="font-size: small; color: gray">Onthou mijn inloggegevens.</label>
+    <div style="height: 2em; width: 100%;"></div>
+    {{ form.loginsubmit() }}
+    <p style="margin-top:2em;">Inloggen met 3<sup>de</sup> partij:</p> 
+    <div class="line" style="width: 100%;"></div>
+    <div class="oauth">
+        <div class="oauth-item">
+            {% import 'partials/smartschool.html' as mysmartschool %}
+            {{ mysmartschool.oauth() }}
+        </div> 
+        <div class="oauth-item">
+            {% import 'partials/google.html' as mygoogle %}
+            {{ mygoogle.oauth() }}
+        </div>
+        <div class="oauth-item">
+            {% import 'partials/microsoft.html' as mymicrosoft %}
+            {{ mymicrosoft.oauth() }}
+        </div>
+    </div>
+</form>
 {% endmacro %}

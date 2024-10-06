@@ -18,7 +18,7 @@ def registratie():
             new_user = User(username=form.username.data, password=form.userpasw.data)
             db.session.add(new_user)
             db.session.commit()
-            session['completed_registration'] = True
+            session['registration_email'] = form.username.data
             return redirect(url_for('users.rechtenenrollen'))
         except IntegrityError:
             db.session.rollback()
@@ -38,15 +38,32 @@ def wachtwoordvergeten():
 
 @users_blueprint.route('/rechtenenrollen', methods=['GET', 'POST'])
 def rechtenenrollen():
-    if 'completed_registration' not in session:
+    if 'registration_email' not in session:
         # If the session flag is not found, redirect to registration page
         current_app.logger.info('>> session not found, redirecting')
         return redirect(url_for('users.registratie'))
     else:
         form = RoleForm()
         if form.validate_on_submit():
-            if form.user_is_teacher.data:
-                return "PLACEHOLDER"
-            elif form.user_is_student.data:
-                return "PLACEHOLDER"
+            if form.user_is_teacher.data or form.user_is_student.data:
+                # pull the record username from the session
+                username = session.get('registration_email')
+                if not username:
+                    # failsave If no username is found in session, redirect to registration page
+                    current_app.logger.info('>> username not found in session, redirecting')
+                    return redirect(url_for('users.registratie')) 
+                # query the db
+                user = User.query.filter_by(username=username).first()
+                if form.user_is_teacher.data:
+                    user.role_id = 1
+                    db.session.commit()
+                    # saving role in browser session
+                    session['registration_role'] = 1
+                    return "STAMBOEKNUMMER"
+                else:
+                    user.role_id = 2
+                    db.session.commit()
+                    # saving role in browser session
+                    session['registration_role'] = 2  
+                    return "MIJN KOPPELINGEN"  
         return render_template('users/rechtenenrollenpagina.html', form=form)

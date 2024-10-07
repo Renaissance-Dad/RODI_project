@@ -24,3 +24,18 @@ class RoleForm(FlaskForm):
            render_kw={"id": "iamStudent"
         })
     
+class StamboekForm(FlaskForm):
+    stamboek = StringField('Stamboeknummer',
+        render_kw={"id": "myStamboeknummer"
+        })
+    usersubmit = SubmitField('Stamboeknummer valideren.', 
+        render_kw={"id": "mySubmit"
+        })
+    
+    
+class KoppelingenForm(FlaskForm):
+     usersubmit = SubmitField('Koppeling toevoegen.', 
+        render_kw={"id": "mySubmit"
+        })
+
+    

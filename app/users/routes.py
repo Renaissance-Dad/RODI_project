@@ -1,6 +1,6 @@
 from . import users_blueprint
 from flask import render_template, redirect, url_for, session, current_app
-from .forms import RegForm, RoleForm
+from .forms import RegForm, RoleForm, StamboekForm, KoppelingenForm
 from app import db
 from app.models import User
 from sqlalchemy.exc import IntegrityError
@@ -59,11 +59,22 @@ def rechtenenrollen():
                     db.session.commit()
                     # saving role in browser session
                     session['registration_role'] = 1
-                    return "STAMBOEKNUMMER"
+                    return redirect(url_for('users.stamboeknummer')) 
                 else:
                     user.role_id = 2
                     db.session.commit()
                     # saving role in browser session
                     session['registration_role'] = 2  
-                    return "MIJN KOPPELINGEN"  
+                    return redirect(url_for('users.mijnkoppelingen')) 
+                     
         return render_template('users/rechtenenrollenpagina.html', form=form)
+    
+@users_blueprint.route('/stamboeknummer', methods=['GET', 'POST'])
+def stamboeknummer():    
+    form = StamboekForm()    
+    return render_template('users/stamboeknummer.html', form=form)
+
+@users_blueprint.route('/mijnkoppelingen', methods=['GET', 'POST'])
+def mijnkoppelingen():
+    form = KoppelingenForm()  
+    return render_template('users/mijnkoppelingen.html', form=form) 

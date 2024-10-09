@@ -4,6 +4,7 @@ from .forms import RegForm, RoleForm, StamboekForm, KoppelingenForm
 from app import db
 from app.models import User
 from sqlalchemy.exc import IntegrityError
+from app.api import onderwijs_het_archief 
 
 @users_blueprint.route('/registratie', methods=['GET', 'POST'])
 def registratie():
@@ -71,7 +72,11 @@ def rechtenenrollen():
     
 @users_blueprint.route('/stamboeknummer', methods=['GET', 'POST'])
 def stamboeknummer():    
-    form = StamboekForm()    
+    form = StamboekForm() 
+    if form.validate_on_submit():
+        test = onderwijs_het_archief(form.stamboek.data)
+        if test == 'OK':
+            current_app.logger.info('>> TWERKT')
     return render_template('users/stamboeknummer.html', form=form)
 
 @users_blueprint.route('/mijnkoppelingen', methods=['GET', 'POST'])

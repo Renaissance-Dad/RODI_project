@@ -1,11 +1,13 @@
+{% import "users/macro.html" as myusersmacros %}
 {% extends "layouts/base.html" %}
+
 {% block title %}Stamboeknummer valideren{% endblock %}
 {% block content %}
     <div class="split-container">
         <div class="split-img1"><img style="object-fit: contain; height: 100%;" src="{{ url_for('static', filename='img/vector_art1.svg') }}" alt="Leerkracht bedenkt een toetsvraag"></div>
         <div class="split-img2"><img style="object-fit: contain; height: 100%;" src="{{ url_for('static', filename='img/vector_art2.svg') }}" alt="Leerkracht in gesprek"></div>
         <div class="split-rightpane">
-            {{ mymacros.stamboek_form(form=form) }}
+            {{ myusersmacros.stamboek_form(form=form) }}
         </div>
     </div>
 {% endblock %}

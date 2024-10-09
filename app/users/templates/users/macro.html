@@ -1,0 +1,126 @@
+{% macro registration_form(form) %}
+    <!-- load the zxcvbn pasw strength library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    
+    <!-- inline javascript to expand the password best practices on focus -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paswField = document.getElementById('myPasw');
+            const hiddenDiv = document.getElementById('hiddenDiv');
+            const strengthMeter = document.getElementById('paswStrengthMeter');
+            const emailField = document.getElementById('myEmail');
+            const errorDiv = document.getElementById('errorDiv');
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Show the hiddenDiv when paswField is focused
+            paswField.addEventListener('focus', function() {
+                hiddenDiv.style.display = 'block'; 
+            });
+
+            // Hide the errorDiv when emailField is focused and the Div exists
+            if (errorDiv) {
+                //expands the error message with a recoveryURL which improves the UX
+                if (errorMsg.innerHTML === 'E-mailadres reeds geregistreerd.') {
+                    const recoveryUrl = "{{ url_for('users.wachtwoordvergeten') }}";
+                    errorMsg.innerHTML += ' <a href="' + recoveryUrl + '" style="color: inherit;">Wachtwoord herstellen?</a>';
+                }
+
+                //removes the focus
+                emailField.addEventListener('focus', function() {
+                    errorDiv.style.display = 'none';
+                });
+            }   
+
+            // Calculate the pasw strength
+            paswField.addEventListener('input', function() {
+                const result = zxcvbn(paswField.value); // Use inputField.value here
+                const strength = result.score; // score is from 0 to 4
+
+                // Update the strength meter based on score
+                strengthMeter.value = strength; // Assuming strengthMeter is a <progress> element
+                strengthMeter.max = 4; // maximum score
+
+                // Remove the disabled attribute from the form submit button
+                if (strength === 4 && (emailField.value.trim() !== '')) {
+                    document.getElementById("mySubmit").removeAttribute("disabled");
+                }
+            });
+        });
+    </script>
+    <!-- render the form -->
+    <h1 class="underline">Registratie</h1>
+    <p style="margin-top:1em;">Maak een gratis account aan.</p> 
+    <div class="line" style="width: 90%;"></div>
+    <form method="POST" class="split-form">
+        {{ form.hidden_tag() }}
+        <p style="font-weight: bold;">E-mailadres</p>
+        {{ form.username() }}
+        {% if form.username.errors %}
+            <div id="errorDiv">
+                {% for error in form.username.errors %}
+                <p id="errorMsg" style="color:red; font-size:0.8em;" >{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <p style="margin-top: 1em; font-weight: bold;">Wachtwoord</p>
+        {{ form.userpasw() }}
+        <div style="height: 0.3em; width: 100%;"></div>
+        <div id="hiddenDiv" style="display: none;">
+            <progress id="paswStrengthMeter" value="0" max="4" style="width: 75%;"></progress>
+            <ul>Maak je wachtwoord sterker tot de balk gevuld is. Enkele tips:
+                <li class="split-form">Gebruik een zin, spaties mogen.</li>
+                <li class="split-form">Maak je wachtwoord iets langer.</li>
+                <li class="split-form">Verwerk cijfers, leestekens of hoofdletters.</li>
+                <li class="split-form">Vermijd je naam, e-mail, de sitenaam, herhalingen of cijferreeksen als 1234.</li>
+            </ul>
+        </div>
+        <div style="height: 1.7em; width: 100%;"></div>
+        {{ form.usersubmit(disabled="disabled") }}
+        <p style="font-weight: lighter;">*Door op deze knop te klikken, ga ik akkoord met de algemene voorwaarden van deze applicatie.</p>
+    </form>
+{% endmacro %}
+
+{% macro role_form(form) %}
+    <!-- Inline javascript to handle the focus button on load -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const button1 = document.getElementById('iamTeacher');
+            const button2 = document.getElementById('iamStudent');
+            
+            // Programmatically focus button1
+            iamTeacher.focus();
+
+            // Button2 mouseover listener
+            iamStudent.addEventListener('mouseover', function() {
+                iamTeacher.blur();
+            });
+        });
+    </script>
+    <!-- Actual html of the rights and roles page -->
+    <h1 class="underline">Rechten en rollen</h1>
+    <p style="margin-top:1em;">Ik ben een:</p> 
+    <div class="line" style="width: 90%;"></div>
+    <form method="POST" class="split-form">
+        {{ form.hidden_tag() }}
+        <div class="rightsandroles-buttons">
+            {{ form.user_is_teacher }}
+            {{ form.user_is_student }}
+        </div>
+    </form>
+{% endmacro %}
+
+{% macro stamboek_form(form) %}
+<h1 class="underline">Stamboeknummer koppelen</h1>
+<p style="margin-top:1em;">Om je te identificeren als lesgever van een Vlaamse erkende onderwijsinstelling hebben we je stamboeknummer nodig:</p> 
+<div class="line" style="width: 90%;"></div>
+<form method="POST" class="split-form">
+    {{ form.hidden_tag() }}
+    <p style="font-weight: bold;">Stamboeknummer</p>
+    {{ form.stamboek() }}
+    {{ form.usersubmit() }}
+</form>
+{% endmacro %}
+
+{% macro koppelingen_form(form) %}
+    KOPPELINGEN MACRO HERE
+{% endmacro %}

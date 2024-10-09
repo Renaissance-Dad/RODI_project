@@ -1,0 +1,39 @@
+{% macro login_form(form) %}
+<h1 class="underline">Login</h1>
+<p style="margin-top:1em;">Vul je logingegevens in:</p> 
+<div class="line" style="width: 90%;"></div>
+<form method="POST" class="split-form">
+    {{ form.hidden_tag() }}
+    <p style="font-weight: bold;">E-mailadres</p>
+    {{ form.username() }}
+    {% if form.username.errors %}
+    <div id="errorDiv">
+        {% for error in form.username.errors %}
+        <p id="errorMsg" style="color:red; font-size:0.8em;" >{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <p style="margin-top: 1em; font-weight: bold;">Wachtwoord</p>
+    {{ form.userpasw() }}
+    {{ form.forgetmenot() }}
+    <label for="forgetmenot" style="font-size: small; color: gray">Onthou mijn inloggegevens.</label>
+    <div style="height: 2em; width: 100%;"></div>
+    {{ form.loginsubmit() }}
+    <p style="margin-top:2em;">Inloggen met 3<sup>de</sup> partij:</p> 
+    <div class="line" style="width: 100%;"></div>
+    <div class="oauth">
+        <div class="oauth-item">
+            {% import 'auth/smartschool.html' as mysmartschool %}
+            {{ mysmartschool.oauth() }}
+        </div> 
+        <div class="oauth-item">
+            {% import 'auth/google.html' as mygoogle %}
+            {{ mygoogle.oauth() }}
+        </div>
+        <div class="oauth-item">
+            {% import 'auth/microsoft.html' as mymicrosoft %}
+            {{ mymicrosoft.oauth() }}
+        </div>
+    </div>
+</form>
+{% endmacro %}

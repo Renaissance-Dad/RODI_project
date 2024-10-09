@@ -1,4 +1,4 @@
-{% import 'partials/macros.html' as mymacros %}
+{% import 'cookies/macro.html' as mycookiemacro %}
 
 <!DOCTYPE html>
 <html lang="nl">
@@ -15,7 +15,7 @@
     {% include 'partials/navmenu.html' %}
     <div class="bgwhitecard">
         {% if not cookie_value %}
-        {{ mymacros.cookie_banner() }}
+        {{ mycookiemacro.cookie_banner() }}
         {% endif %}
 
 
